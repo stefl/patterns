@@ -1,0 +1,23 @@
+{
+  "name": "ratchet",
+  "private": true,
+  "description": "A runnable example of a ratchet check: a rule switched on over existing debt, where each count may only go down.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "bun@1.4.4",
+  "scripts": {
+    "check:ratchet": "bun ratchet/check.ts",
+    "demo": "bun demo/break.ts",
+    "test": "vitest run",
+    "type-check": "tsc -p tsconfig.json",
+    "check": "bun run type-check && bun run test && bun run check:ratchet && bun fmt --check"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.3",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  },
+  "engines": {
+    "bun": ">=1.4.4"
+  }
+}
