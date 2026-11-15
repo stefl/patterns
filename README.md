@@ -18,6 +18,7 @@ Written by [Stef Lewandowski](https://stef.io). MIT licence.
 - [`failure-register`](failure-register): log the commands your agents got wrong, rank them, and catch a fix that did not take.
 - [`overnight-hunt`](overnight-hunt): what an overnight bug hunt should let through, and what a quiet night means.
 - [`follow-ups`](follow-ups): the steps only a person can do, each waiting on a fact.
+- [`mine-your-transcripts`](mine-your-transcripts): read your own agent sessions for what recurs, keep only what you can check, and draft what clears a bar.
 
 ## Lists and pages that stay true
 
