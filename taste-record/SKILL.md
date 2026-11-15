@@ -16,6 +16,9 @@ happen, and rules the owner has declared from them.
    anything the owner will see.
 2. For every visible element, ask "chosen or defaulted?". If nothing in the
    record or the brief chose it, say so, and replace it or ask.
+3. When you hand design work to a sub-agent, paste the hard rejections into
+   its brief and tell it to read the record. A sub-agent has not loaded
+   what you loaded, and will reach for the same defaults.
 
 ## When the owner reacts
 
