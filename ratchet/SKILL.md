@@ -25,7 +25,7 @@ not how bad the place is allowed to get.
 1. Write the counter: given a folder, return the number of violations in the
    files directly inside it, not in its subfolders. A crude counter, such as
    matching lines, is fine. It only has to move when the code does.
-2. Write the pins file: one number per folder. Add a written reason beside each if you can; the small version on the page leaves reasons out.
+2. Write the pins file: one number per folder. Add a written reason beside each if you can.
 3. Write the check. It compares the live count with the pin and fails on
    any difference, not only when the count is higher. A change that removes a
    violation then has to lower the pin in the same diff. A folder with no pin
