@@ -22,29 +22,31 @@ ask fixed questions, and prove the reviewer really was cold.
 
 ## Build it
 
-1. Run a mechanical scan first: list each capitalised name whose first use
-   does not say what it is, and each "the X" where nothing earlier on the
-   page mentions X. It over-flags. Fix the real ones before spending a model
-   run.
-2. Start the reviewer in a fresh context with nothing loaded but the text
-   file and a short list of fixed questions:
-   - what is this page about, in one sentence;
-   - who is it for;
-   - every name, term or "the X" you could not explain from the page alone,
-     in page order, each with a suggested first-mention rewrite;
-   - a canary: one question whose answer is only in the source or the
-     conversation, such as the file the page is built from. A cold reader
-     answers "not on the page".
-3. Discard any run that answers the canary. It may have seen more than the
-   page, or guessed; either way it is not cold.
-4. Before you compare two drafts, run the reviewer twice on the same
-   unchanged draft and see how far the runs agree. Runs differ. Compare
-   drafts on the count of flags over several runs, not on which flags one
-   run raised.
-5. Fix every flag, or record why it is fine: the reference, the reason and
-   the date. Give that record to the next run so a ruled-on flag is not
-   raised again.
-6. Read again after the fixes, cold, in a new context.
+1. Write the reader's brief once and keep it in a file: who the reader is,
+   the rules the page is held to (every page is page one; introduce before
+   you refer; define a term once), the kinds of unresolved reference
+   ("the X", a name, a term, a line that assumes another page), a severity
+   for each, and "quote the exact text and suggest a rewrite of its first
+   mention".
+2. Call the model so that nothing but the brief and the screen reaches it:
+   a new process for each call, started in an empty folder, with an
+   environment of the path and home folder only, no settings files, no
+   instructions file, no tools, no tool servers and no saved session. Ask
+   for the reply in a fixed structure, so it can be counted.
+3. Ask a canary first: two or three questions only your own setup could
+   answer, such as the project's name or the file the page is built from.
+   Stop unless every answer is "cannot tell". Check the questions on a
+   cold run before you trust them: one that a cold model can answer
+   honestly ("what was said earlier?" gets "nothing") makes every run
+   look warm.
+4. Drop any finding whose quote is not on the page. The model made it up.
+5. Before you compare two drafts, read the same unchanged draft twice and
+   see how far the runs agree. Compare drafts on the count of findings
+   over several runs, not on which findings one run raised.
+6. Fix every finding, or record why it is fine: the reference, the reason
+   and the date. Give that record to the next run so a ruled-on finding is
+   not raised again.
+7. Read again after the fixes, cold, in a new process.
 
 ## Prove it can fail
 

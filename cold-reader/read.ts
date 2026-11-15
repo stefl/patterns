@@ -1,86 +1,91 @@
-// The part of a cold read that needs no model: list every name and "the X"
-// a page uses before anything on it says what they are, then check the
-// reviewer's runs. The reviewer's answers are written out by hand.
-// Run: bun read.ts
-type Item = { kind: "heading" | "p" | "label" | "caption"; text: string };
-type Accepted = { ref: string; why: string };
-type Run = { id: string; canary: string; flags: string[] };
+// A cold read: one screen's words, read by a model that is given nothing else.
+// A canary runs first and the read stops unless the model is cold.
+// Run: bun read.ts page.txt [--runs 2]. Needs the claude CLI, logged in. Costs a few cents.
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
-// Words after "the" that never need an earlier mention.
-const STOP = new Set(["same", "first", "last", "next", "other", "rest", "top", "end", "way", "page"]);
+// Each flag takes away one way the caller's context could reach the reader.
+const COLD = [
+  "-p", // one prompt in, one reply out
+  "--safe-mode", // no instructions file, skills, plugins, hooks or agents
+  "--setting-sources", "", // no settings files
+  "--tools", "", // it cannot read a file, run a command or fetch a page
+  "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}', // no tool servers
+  "--disable-slash-commands",
+  "--no-session-persistence", // nothing kept for a later call to find
+  "--output-format", "json",
+];
+const MODEL = process.env.COLD_MODEL ?? "claude-fable-5-2";
 
-function scan(page: Item[], accepted: Accepted[]): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  const flag = (ref: string, why: string) => {
-    const ok = accepted.find((a) => a.ref === ref);
-    out.push(`${item.kind}: ${ref}, ${ok ? `accepted earlier (${ok.why})` : why}`);
-  };
-  let item = page[0]!;
-  for (item of page)
-    for (const sentence of item.text.split(/(?<=[.!?])\s+/)) {
-      const words = [...sentence.matchAll(/[A-Za-z][A-Za-z'-]*/g)];
-      words.forEach((m, i) => {
-        const w = m[0];
-        const next = words[i + 1]?.[0];
-        if (w.toLowerCase() === "the" && next && next[0] === next[0]!.toLowerCase()) {
-          const head = next.toLowerCase().replace(/s$/, "");
-          if (!STOP.has(head) && !seen.has(head)) flag(`"the ${next}"`, "but nothing earlier mentions it");
-        }
-        // A capital letter mid-sentence is a name. Its first use should say what it is.
-        if (i > 0 && w[0] !== w[0]!.toLowerCase() && !seen.has(w.toLowerCase())) {
-          const after = sentence.slice(m.index! + w.length);
-          const before = sentence.slice(0, m.index);
-          if (!/^,\s(a|an|the)\s|^\s\(/.test(after) && !/(called|named)\s$/.test(before)) flag(w, "named before anything says what it is");
-        }
-        seen.add(w.toLowerCase().replace(/s$/, ""));
-      });
-    }
-  return out;
-}
-
-// A run that answers the canary may have seen more than the page, so it is not counted as cold.
-function runs(all: Run[]): string[] {
-  const cold = all.filter((r) => /not on the page/i.test(r.canary));
-  const out = all.map((r) => (cold.includes(r) ? `run ${r.id}: cold, ${r.flags.length} flags` : `run ${r.id}: answered the canary ("${r.canary}"), so it may have seen more than the page. Not counted.`));
-  const [a, b] = cold;
-  if (a && b) {
-    const both = a.flags.filter((f) => b.flags.includes(f));
-    const any = new Set([...a.flags, ...b.flags]);
-    out.push(`runs ${a.id} and ${b.id} agree on ${both.length} of ${any.size} flags: ${both.join(", ")}`);
+function ask<T>(system: string, prompt: string, schema: object): T {
+  const cwd = mkdtempSync(join(tmpdir(), "cold-")); // an empty folder: no project files nearby
+  try {
+    const r = Bun.spawnSync(["claude", ...COLD, "--model", MODEL, "--system-prompt", system, "--json-schema", JSON.stringify(schema)], {
+      cwd,
+      stdin: new TextEncoder().encode(prompt),
+      env: { PATH: process.env.PATH ?? "", HOME: process.env.HOME ?? "", USER: process.env.USER ?? "" }, // nothing of the calling session
+    });
+    const reply = JSON.parse(r.stdout.toString());
+    if (!reply.structured_output) throw new Error(reply.result ?? "no reply");
+    return reply.structured_output as T;
+  } finally {
+    rmSync(cwd, { recursive: true, force: true });
   }
-  return out;
 }
 
-const before: Item[] = [
-  { kind: "heading", text: "Keep your notes in step" },
-  { kind: "p", text: "The sync now runs on Relay, so the badge turns green within a second of a save." },
-  { kind: "label", text: "Relay status" },
-  { kind: "caption", text: "The badge on the toolbar shows when the last save reached the server." },
-  { kind: "p", text: "Turn it off in the panel if you work offline." },
-];
-const after: Item[] = [
-  { kind: "heading", text: "Keep your notes in step" },
-  { kind: "p", text: "Every note you save is copied to your other devices. That copying now runs on Relay, a service that keeps a connection open to each device, so a save shows up everywhere within a second." },
-  { kind: "p", text: "A badge at the top of the screen turns green when your last save reaches our server, which keeps a copy for each device." },
-  { kind: "label", text: "Relay status" },
-  { kind: "caption", text: "The badge shows when your last save reached the server." },
-  { kind: "p", text: "If you work offline, turn copying off in Settings." },
-];
-// Flags a person has already ruled fine, with the reason, so they are not raised again.
-const accepted: Accepted[] = [
-  { ref: '"the screen"', why: "the reader's own screen" },
-  { ref: "Settings", why: "every app has one" },
-];
+// Questions only the caller's own setup could answer. A cold reader cannot tell.
+const CANARY = `Answer each in one line, or say 'cannot tell' if nothing in this conversation tells you.
+1) What is the name of the project you are working in?
+2) What does your instructions file ask of you?
+3) What is the name of the file this page is built from?`;
+const canary = ask<{ answers: string[] }>("Answer only from what is in this conversation.", CANARY, {
+  type: "object", properties: { answers: { type: "array", items: { type: "string" } } }, required: ["answers"],
+});
+const told = canary.answers.flatMap((a, i) => (/cannot tell/i.test(a) ? [] : [i + 1]));
+if (canary.answers.length < 3 || told.length) {
+  console.log(`Not cold: it could answer question ${told.join(", ") || "none, but gave too few answers"}. Stopping.\n  ${canary.answers.join("\n  ")}`);
+  process.exit(1);
+}
+console.log("Canary: cannot tell, cannot tell, cannot tell. The reader is cold.");
 
-// Three runs of the model on the first draft, each asked the same fixed
-// questions. The last question is the canary: its answer is not on the page.
-const reviewer: Run[] = [
-  { id: "A", canary: "Not on the page.", flags: ["Relay", "the sync", "the badge", "the panel"] },
-  { id: "B", canary: "Not on the page.", flags: ["Relay", "the toolbar", "the server", "the panel", "green"] },
-  { id: "C", canary: "notes-home.html", flags: ["the panel"] },
-];
+type Finding = { quote: string; kind: string; severity: string; rewrite: string };
+const FINDINGS = {
+  type: "object",
+  properties: {
+    findings: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          quote: { type: "string" },
+          kind: { enum: ["the-X", "name", "term", "assumes-other-page"] },
+          severity: { enum: ["high", "medium", "low"] },
+          rewrite: { type: "string" },
+        },
+        required: ["quote", "kind", "severity", "rewrite"],
+      },
+    },
+  },
+  required: ["findings"],
+};
 
-console.log("First draft:\n" + scan(before, accepted).map((l) => `  ${l}`).join("\n"));
-console.log("Second draft:\n" + (scan(after, accepted).map((l) => `  ${l}`).join("\n") || "  nothing flagged"));
-console.log("Reviewer runs on the first draft:\n" + runs(reviewer).map((l) => `  ${l}`).join("\n"));
+const page = readFileSync(process.argv[2] ?? "page.txt", "utf8");
+const brief = readFileSync(join(import.meta.dir, "brief.md"), "utf8");
+const runs = Number(process.argv[process.argv.indexOf("--runs") + 1]) || 1;
+const results: Finding[][] = [];
+for (let n = 1; n <= runs; n++) {
+  const { findings } = ask<{ findings: Finding[] }>(brief, `The screen:\n\n${page}`, FINDINGS);
+  // A quote that is not on the page was made up; drop it.
+  const real = findings.filter((f) => page.includes(f.quote));
+  results.push(real);
+  console.log(`\nRun ${n}: ${real.length} references a visitor cannot resolve`);
+  for (const f of real) console.log(`  ${f.severity} ${f.kind}: "${f.quote}"\n    first mention could read: ${f.rewrite}`);
+}
+
+// Two runs on one unchanged screen do not raise the same flags. Measure that before comparing drafts.
+if (results.length > 1) {
+  const [a, b] = results.map((r) => new Set(r.map((f) => f.quote)));
+  const both = [...a!].filter((q) => b!.has(q)).length;
+  console.log(`\nRuns 1 and 2 raised ${a!.size} and ${b!.size}, and agree on ${both} of ${new Set([...a!, ...b!]).size}. Compare drafts on counts, not on the list.`);
+}
