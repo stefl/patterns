@@ -1,0 +1,5 @@
+project: shop
+date: 2026-11-04
+
+agent: Deployed. Someone should delete the old key in two days.
+person: Write that down somewhere Priya and I will see it on the day.

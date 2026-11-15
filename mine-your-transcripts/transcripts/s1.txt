@@ -1,0 +1,6 @@
+project: shop
+date: 2026-10-02
+
+agent: Done, and all tests pass.
+person: Which tests? Show me the command and its result.
+agent: bun test src/cart, 14 passed.

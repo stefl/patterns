@@ -1,0 +1,5 @@
+project: blog
+date: 2026-10-14
+
+agent: Merged. You will need to add the new key in the hosting dashboard.
+person: Write that down somewhere I will see it tomorrow.

@@ -1,0 +1,6 @@
+project: docs
+date: 2026-10-30
+
+agent: Fixed, this works now.
+person: How do you know? Show me the command and its result.
+person: Spaces, not tabs.

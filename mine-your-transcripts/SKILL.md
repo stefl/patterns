@@ -27,12 +27,13 @@ agents work. Then read the next months of transcripts to see if it held.
 2. Give a reader (usually a model, often a sub-agent: a second agent started
    for one task) a brief that says what to look for, such as what the person
    corrected, what failed twice, or what was settled.
-3. Every note cites one session and quotes one line from it. Before a note
-   counts, check the line is in that session. Mark a note you could not check
-   as relayed, and do not count it.
-4. Count each habit across distinct sessions and distinct projects. Set a bar
-   before you look, such as three sessions or two projects. A preference
-   stated once is not a pattern.
+3. Every note cites one session and quotes one line from it, and says
+   whether the reader opened that line itself (checked) or is going on
+   something else (relayed). A relayed note is never passed off as checked.
+4. Count each habit across distinct sessions and distinct projects. The
+   person sets the bar, such as three sessions or two projects, before
+   anyone looks, and decides what clears it. The reader writes down every
+   habit it finds, including ones seen once.
 5. Before you record a gap (one project has a habit another lacks), check the
    habit does not live somewhere else, such as a rule set for every project
    or another tool. If it does, drop the gap.
@@ -48,7 +49,10 @@ agents work. Then read the next months of transcripts to see if it held.
    and person name. The rewrite is how names come out; the scan is the
    backstop. If the scan finds a name, rewrite the line. Do not add the name
    to an allow list.
-4. Write a small runnable example, run it, and keep its real output.
+4. Base the worked example on the real thing you use: the prompt, the agent
+   file, the hook or the script, cut down and with the names taken out.
+   Never fake a model's output to make the example runnable. Run it, and
+   keep what one real run printed.
 5. Give the finished page to a cold reader, a reviewer who has not seen the
    sources, and fix what they could not follow. A person approves the wording.
 

@@ -1,0 +1,37 @@
+# Candidates
+
+## Show the proof behind a "done" claim
+
+**Pressure.** The agent reports success in general words ("done", "all green", "this works") with nothing to check it against, so the person has to ask what was actually run.
+**Mechanism.** A success claim comes with the exact command that was run and its result, before the person has to ask.
+**Evidence.**
+- transcripts/s1.txt (shop): `person: Which tests? Show me the command and its result.` — **checked**
+- transcripts/s4.txt (docs): `person: Green where? Show me the command and its result.` — **checked**
+- transcripts/s5.txt (docs): `person: How do you know? Show me the command and its result.` — **checked**
+**Recurrence.** 3 sessions, 2 projects.
+
+## Fix the failing check, don't switch it off
+
+**Pressure.** When a check fails and the fix takes effort, the agent reaches for the quick route of excluding the failing item from the check, which hides the problem and leaves it unfixed.
+**Mechanism.** A failing lint or test is repaired at its cause. The ignore or skip list is not extended.
+**Evidence.**
+- transcripts/s2.txt (shop): `person: Don't add to the ignore list. Fix the checkout code.` — **checked**
+- transcripts/s4.txt (docs): `person: Don't add to the skip list. Fix the test.` — **checked**
+**Recurrence.** 2 sessions, 2 projects.
+
+## Write down manual follow-ups where the right people will see them, when due
+
+**Pressure.** After a merge or deploy, the agent mentions a manual step still owed (a config change, a cleanup due later) only in passing in the chat, where it is gone by the time it matters.
+**Mechanism.** Each owed step is recorded in a durable place that the people who must act on it will see, at the time it is due, not left in the conversation.
+**Evidence.**
+- transcripts/s3.txt (blog): `person: Write that down somewhere I will see it tomorrow.` — **checked**
+- transcripts/s6.txt (shop): `person: Write that down somewhere Priya and I will see it on the day.` — **checked**
+**Recurrence.** 2 sessions, 2 projects.
+
+## Indent with spaces, not tabs
+
+**Pressure.** The agent produces tab indentation where the person wants spaces.
+**Mechanism.** Indentation is spaces.
+**Evidence.**
+- transcripts/s5.txt (docs): `person: Spaces, not tabs.` — **checked**
+**Recurrence.** Once (1 session, 1 project).
