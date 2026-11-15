@@ -1,6 +1,6 @@
 # Prove a check
 
-A check that passes has either looked and found nothing, or not looked. This example proves a check can fail: it runs the check on clean code, adds one known mistake, runs it again, and removes the mistake.
+A check that passes has either looked and found nothing, or not looked. Test-driven development handles this for unit tests by watching each one fail first; this applies the same step to every other check. This example proves a check can fail: it runs the check on clean code, adds one known mistake, runs it again, and removes the mistake.
 
 Run it with [Bun](https://bun.sh), a JavaScript runtime, from this folder:
 

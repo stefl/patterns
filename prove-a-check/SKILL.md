@@ -1,12 +1,15 @@
 ---
 name: prove-a-check
-description: Use when adding or changing an automated check (a test, a lint rule, a build step that can block a change), or when a check has only ever passed. Shows the check can fail before anyone trusts it to pass.
+description: Use when adding or changing an automated check other than a unit test written test-first (a lint rule, a build pipeline job, a scheduled job, a custom script that can block a change), or when a check has only ever passed. The red step of test-driven development, applied to every check.
 ---
 
 # Prove a check
 
 A passing check has either looked and found nothing, or not looked at all, and
-the two look the same. Before you trust a check, watch it fail.
+the two look the same. Test-driven development answers this for unit tests by
+watching each test fail first. Do the same for every other check: lint rules,
+build pipeline jobs, scheduled jobs and scripts. Before you trust a check,
+watch it fail.
 
 ## For every new or changed check
 
