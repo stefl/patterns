@@ -25,3 +25,7 @@ Written by [Stef Lewandowski](https://stef.io). MIT licence.
 - [`claims-ledger`](claims-ledger): every factual sentence on a page, with its evidence.
 - [`two-way-registry`](two-way-registry): one typed list, checked against the code in both directions.
 - [`typed-journeys`](typed-journeys): the paths people take through a product, declared in code, with the prose generated.
+
+## Judgement and taste
+
+- [`machine-scores`](machine-scores): a model scores a long list but never rejects, and its verdict counts only as far as its surviving evidence.
