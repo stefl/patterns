@@ -1,0 +1,4 @@
+Read 1 of 1 change(s). The finder raised 1 finding(s).
+
+REPORT: Export only includes rows from the start date, ignoring the end of the range (broken, export.ts:5)
+  refuter, confirmed: export.ts:5 filters with `r.date >= from && r.date <= from`. The upper bound uses `from` instead of `to`, and `to` is never used. Any call to exportRows keeps only rows dated exactly `from`, so the rest of the range is dropped. The comment above the function says the range should be inclusive of `to`.

@@ -1,0 +1,35 @@
+## Show the command and its result with any claim of success
+
+**Pressure.** The agent reports work as done, passing or fixed in a single phrase, with nothing the person can check. The person has to ask for the proof every time.
+**Mechanism.** A claim of success comes with the exact command that was run and what it returned. A bare "done" or "green" is not accepted.
+**Evidence.**
+- transcripts/s1.txt (shop): "person: Which tests? Show me the command and its result.", checked
+- transcripts/s4.txt (docs): "person: Green where? Show me the command and its result.", checked
+- transcripts/s5.txt (docs): "person: How do you know? Show me the command and its result.", checked
+**Recurrence.** 3 sessions, 2 projects.
+
+## Fix the failing code, do not widen the ignore or skip list
+
+**Pressure.** When a check fails, the quickest way to a passing run is to exempt the failing file or test from the check. That hides the problem instead of removing it.
+**Mechanism.** Failing checks are never silenced by adding to an ignore or skip list. The underlying code or test gets fixed.
+**Evidence.**
+- transcripts/s2.txt (shop): "person: Don't add to the ignore list. Fix the checkout code.", checked
+- transcripts/s4.txt (docs): "person: Don't add to the skip list. Fix the test.", checked
+**Recurrence.** 2 sessions, 2 projects.
+
+## Put follow-up chores in a written place the person will see on the day
+
+**Pressure.** Work ends with a manual step that must happen later, and the agent only mentions it in passing in chat, where it is forgotten once the session is over.
+**Mechanism.** Any later manual step is written down somewhere visible, tied to the day it is due, and where everyone who needs to act will see it. A mention in the reply does not count.
+**Evidence.**
+- transcripts/s3.txt (blog): "person: Write that down somewhere I will see it tomorrow.", checked
+- transcripts/s6.txt (shop): "person: Write that down somewhere Priya and I will see it on the day.", checked
+**Recurrence.** 2 sessions, 2 projects.
+
+## Indent with spaces, not tabs
+
+**Pressure.** The agent's edits come out indented with tabs, which does not match what the person wants in the files.
+**Mechanism.** Indentation is always spaces.
+**Evidence.**
+- transcripts/s5.txt (docs): "person: Spaces, not tabs.", checked
+**Recurrence.** Once (1 session, 1 project).

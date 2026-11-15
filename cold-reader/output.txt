@@ -1,0 +1,33 @@
+Canary: cannot tell, cannot tell, cannot tell. The reader is cold.
+
+Run 1: 7 references a visitor cannot resolve
+  high the-X: "The sync"
+    first mention could read: Your notes are copied to our server each time you save (we call this syncing). Syncing
+  high name: "Relay"
+    first mention could read: Relay, our new, faster service for sending saves to the server,
+  medium assumes-other-page: "now runs on"
+    first mention could read: runs on (say what it replaced, e.g. "Syncing used to take several seconds; it now runs on ...")
+  low the-X: "the badge turns green"
+    first mention could read: the small status badge on the toolbar turns green
+  medium the-X: "Turn it off"
+    first mention could read: Turn syncing off
+  medium the-X: "in the panel"
+    first mention could read: in the settings panel (say where it is and how to open it, e.g. "click the badge to open it")
+  low the-X: "on the toolbar"
+    first mention could read: on the toolbar at the top of the notes editor
+
+Run 2: 6 references a visitor cannot resolve
+  high the-X: "The sync"
+    first mention could read: Each time you save, your notes are copied to our server so they match on all your devices. This copying (sync)
+  high name: "Relay"
+    first mention could read: Relay, our new faster service for sending saves to the server,
+  medium assumes-other-page: "now runs on"
+    first mention could read: used to take several seconds; it now runs on
+  low the-X: "the badge turns green"
+    first mention could read: the small status badge on the toolbar turns green
+  medium the-X: "Turn it off"
+    first mention could read: Turn sync off
+  medium the-X: "in the panel"
+    first mention could read: in the settings panel (open it from the toolbar)
+
+Runs 1 and 2 raised 7 and 6, and agree on 6 of 7. Compare drafts on counts, not on the list.

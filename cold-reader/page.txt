@@ -1,0 +1,6 @@
+# Keep your notes in step
+The sync now runs on Relay, so the badge turns green within a second of a save.
+[label] Relay status
+[image] The badge on the toolbar shows when the last save reached the server.
+Turn it off in the panel if you work offline.
+[button] Save
