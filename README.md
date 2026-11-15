@@ -30,3 +30,4 @@ Written by [Stef Lewandowski](https://stef.io). MIT licence.
 
 - [`machine-scores`](machine-scores): a model scores a long list but never rejects, and its verdict counts only as far as its surviving evidence.
 - [`taste-record`](taste-record): agents write down how you react to design and wording, in your words; only you can turn one into a rule.
+- [`cold-reader`](cold-reader): a reviewer that sees only the rendered page flags every reference a first-time visitor could not resolve.
