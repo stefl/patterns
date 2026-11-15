@@ -29,3 +29,4 @@ Written by [Stef Lewandowski](https://stef.io). MIT licence.
 ## Judgement and taste
 
 - [`machine-scores`](machine-scores): a model scores a long list but never rejects, and its verdict counts only as far as its surviving evidence.
+- [`taste-record`](taste-record): agents write down how you react to design and wording, in your words; only you can turn one into a rule.
