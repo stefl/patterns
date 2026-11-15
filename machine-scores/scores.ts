@@ -56,7 +56,7 @@ function clear(name: string, checks: Check[]): void {
     const risk = worst([ra.risk, rb.risk]); // two models, the worse reading wins
     score -= { low: 0, medium: 15, high: 35, blocker: 60 }[risk];
     const said = [a!.risk, b!.risk].join(" and ");
-    console.log(`  ${check}: ${risk} (the models said ${said})${ra.risk !== rb.risk ? ", engines disagreed" : ""}`);
+    console.log(`  ${check}: ${risk} (the models said ${said})${ra.risk !== rb.risk ? ", models disagreed" : ""}`);
     for (const k of new Set([...ra.kept, ...rb.kept])) console.log(`    ${k}`);
   }
   // Unknown is not clean: each check that did not run takes 3 off the best possible score, down to 50.

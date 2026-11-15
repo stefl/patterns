@@ -6,8 +6,8 @@ description: Use when a model sorts a list too long for a person to read (names,
 # Machine scores, only a human rejects
 
 A model can rank hundreds of items in minutes. Letting it remove the weak
-ones looks like the same job, but a removed item leaves the view and nobody
-argues with it. Keep the two apart: the model writes a score, and only a
+ones looks like the same job, but a removed item leaves the view and stops
+being questioned. Keep the two apart: the model writes a score, and only a
 person changes an item's status.
 
 ## The long list
@@ -17,7 +17,7 @@ person changes an item's status.
 2. If the reply leaves an item out, or the call fails, give the item a middle
    score and keep it. A missing score is not a low one.
 3. Record a reason on every rejection, naming who made it: a score threshold,
-   a lookup, or a person. Do not backfill a reason onto old rows that have
+   a lookup, or a person. Do not add a reason later to old rows that have
    none, because then the reason no longer says who decided.
 4. If the machine ever did reject, write the undo against that reason, so it
    restores the machine's rejections and leaves the person's alone. Make sure
