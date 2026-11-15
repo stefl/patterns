@@ -43,8 +43,11 @@ person changes an item's status.
 
 ## When a person disagrees with the rubric
 
-Change the rule, write down the case and the reason, and add the case to a
-test that replays it on every run. A rule changed only in prose drifts back.
+Write the ruling into the model's prompt itself, with the case that caused
+it ("two names that share four letters but are said differently are at most
+a low risk on sound alone"), so every later run reads it. Keep the case and
+the date beside it, so the next person who disagrees can see why the line
+is there.
 
 ## What it does not do
 

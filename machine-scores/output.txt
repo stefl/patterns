@@ -1,0 +1,9 @@
+Old form: the scorer rejected 7 of 20. The undo restored 7; still rejected: Hembry, Wendal
+Settled form: 20 scored, 0 missing and given 5, 0 removed. Highest: Nimbre 8, Sollen 8, Talvo 7
+
+Clearing Nimbre:
+  claude-sonnet-5-5: kept a low company clash, page could not be read (403)
+  claude-sonnet-5-5: kept a low company clash
+  claude-sonnet-5-5 said low; from its surviving links, low
+  claude-haiku-5-5 said low; from its surviving links, low, nothing survived
+  overall low, score 100, best possible 100
