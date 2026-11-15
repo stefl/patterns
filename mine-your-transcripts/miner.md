@@ -10,10 +10,12 @@ Write each habit you find to `candidates.md`, in this form:
 
 **Pressure.** What keeps causing the problem, in one or two sentences.
 **Mechanism.** What the person settled on instead.
-**Evidence.** Each line that shows it: the file, and the line quoted
-character for character. Mark each one **checked** if you opened the file
-and found the line yourself just now, or **relayed** if you are going on
-something else. Never pass a relayed line off as checked.
+**Evidence.** One list item for each line that shows it, written as
+`- <file> (<project>): "<the line, quoted character for character>", checked`
+or the same ending in `relayed`. Checked means you opened the file and
+found the line yourself just now; relayed means you are going on something
+else. Never pass a relayed line off as checked. Use no dashes as
+punctuation.
 **Recurrence.** How many sessions and how many projects it appears in.
 
 Rules:

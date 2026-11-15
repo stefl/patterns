@@ -1,40 +1,33 @@
-breaks a rejection: 4px #6d4aff top border on the card
+breaks a rejection: Coloured 4px band along the top of the card (border-top: 4px solid #6d4aff)
   rule: "Never a coloured band along the top of a card; instead, no band." (declared 2026-10-17, not yet enforced)
-  instead: Remove the border-top. No band.
+  instead: Remove the band. Don't swap in another border.
 breaks a rejection: Title colour (#6d4aff on the h3)
   rule: "Never a title in a colour; instead, titles in the normal text colour, and colour on a chip or an icon." (declared 2026-10-24, not yet enforced)
-  instead: Set the title in the normal text colour. If the purple stays, it goes on a chip or an icon.
+  instead: Set the title in the normal text colour. If the purple is kept, put it on a chip or an icon.
 breaks a rejection: Title text "weekly summary"
-  rule: "Never a label that starts lower case; instead, sentence case." (declared 2026-10-24, enforced by a test over the copy file). This string is inline, so it may sit outside that test.
-  instead: "Weekly summary"
-breaks a rejection: Card colours: #ffffff background with #000000 text
-  rule: "Never pure black on pure white; instead, a tinted pair." (declared 2026-07-26, enforced by the colour tokens). Hard-coded hex values bypass the tokens.
-  instead: Use the tinted pair from the colour tokens. How warm the tint is belongs to the open register (see next item).
+  rule: "Never a label that starts lower case; instead, sentence case." (declared 2026-10-24, enforced by a test over the copy file)
+  instead: "Weekly summary". Change it in the copy file, since that is where the test looks.
+breaks a rejection: Text and background pair (#000000 on #ffffff)
+  rule: "Never pure black on pure white; instead, a tinted pair." (declared 2026-07-26, enforced by the colour tokens)
+  instead: Use the tinted pair from the colour tokens instead of hard-coded hex values.
 open tension: How warm the tinted pair should be
-  rule: Open register, 2026-07-26: "Warm against merely not stark." The contrast ceiling is stable. Whether the warmth is wanted is undecided.
-  instead: Not resolved here. The owner decides. The tokens' current pair is the only thing I'd use meanwhile.
-open tension: Purple as an accent colour (whatever remains of #6d4aff after the band, title and fill are fixed)
+  rule: Open register, 2026-07-26: "Warm against merely not stark." The contrast ceiling is stable, but the warmth may be habit.
+  instead: Left for the owner. The rejection only requires the pair not be pure black on pure white. I won't decide whether it should be warm paper.
+open tension: Purple (#6d4aff) as the screen's colour, on the band, the title and the primary button
   rule: Open register, 2026-10-24: "Colour with one job, against more colour." It is decided per project until the owner rules.
-  instead: Not resolved here. I'd leave the colour's meaning for the owner or the project to settle.
-breaks a rejection: Suggested-action button ("Archive the old ones (suggested)") filled with #6d4aff
+  instead: Left for the owner. The rejections above still apply to the band, the title and the button. Whether purple keeps one meaning or the screen gets more colour is not mine to settle.
+breaks a rejection: Body line "You closed 12 notes this week, 3 more than last week." at 14px
+  rule: Threshold: "Body text no smaller than 16 pixels; whole-pixel sizes only." This is a threshold, not a never/instead rejection.
+  instead: 16px or larger, in whole pixels. The wording is not in question.
+breaks a rejection: Filled purple button "Archive the old ones (suggested)"
   rule: "Never a filled button for a suggestion; instead, an outline." A filled control means the person's own answer. (declared 2026-10-24, not yet enforced)
-  instead: An outlined button. Drop the white-on-fill styling.
-chosen: Button label wording and sentence case ("Archive the old ones (suggested)")
-  rule: Sentence case, so no rejection applies.
-defaulted: "Keep them" button (no styling, browser default)
-  rule: No rule in TASTE.md covers it. It is unstyled, so nobody decided how it looks.
-  instead: Left as is. I'm not adding a rule. Its look is for the owner to decide, within the filled-means-own-answer meaning.
-defaulted: Body text size 14px
-  rule: Threshold: "Body text no smaller than 16 pixels; whole-pixel sizes only." This is a threshold, not a hard rejection, but 14px is below it.
-  instead: 16px or larger, in whole pixels.
-chosen: Body copy ("You closed 12 notes this week, 3 more than last week.")
-  rule: Specific, plain, sentence case. Nothing in TASTE.md objects.
-defaulted: Box-shadow (0 4px 12px rgba(0,0,0,.15))
-  rule: No hard rejection covers shadows. The only relevant guidance is the principle "Taste reads as removal," which is not a rule against shadows.
-  instead: Nothing mandated. Flag it for the owner as a likely generator addition.
-defaulted: Border-radius 12px and padding 24px
-  rule: TASTE.md says nothing about radius or spacing. They look like stock values.
-  instead: Nothing mandated. Leave them unless the owner says otherwise.
-defaulted: Overall: the card carries several decorations (band, coloured title, shadow, filled button)
-  rule: Principles: "One deliberate signature per screen, not one per element." Right now there are several competing flourishes and no clear single signature.
-  instead: Removing the band, the coloured title and the filled button leaves room for one signature. Which one it is is the owner's call.
+  instead: An outline button, with no fill. The button's own label already says it is a suggestion, so the fill only repeats that.
+defaulted: "Keep them" button (unstyled browser default)
+  rule: No rejection applies. It has no styling at all, so nothing shows it was chosen.
+  instead: Nothing is required by TASTE.md. It needs a deliberate treatment, and the fill rule above bears on which button, if any, is filled.
+defaulted: Drop shadow (0 4px 12px rgba(0,0,0,.15))
+  rule: No hard rejection covers it. The only relevant guidance is the principle "Taste reads as removal." That is a principle, not a rule I can enforce.
+  instead: Nothing is mandated. It looks like generator decoration, so I'd flag it to the owner rather than remove it myself.
+defaulted: Card shape and spacing (12px radius, 24px padding)
+  rule: Nothing in TASTE.md speaks to radius or padding.
+  instead: Nothing is mandated. I'll leave these as they are, and they're the owner's call.
