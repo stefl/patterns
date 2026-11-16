@@ -72,3 +72,29 @@ report("After, checked again", after);
 const final =
   "The new deploy script runs the database step in one command. I couldn't see where backups are checked. Recording who ran each deploy would make a bad release easier to trace. I'd suggest a review before each release.";
 report("Final", final);
+
+// Registers. The same line can be right for one reader and wrong for another:
+// a gloss helps a reader who does not know the term and talks down to one who
+// does. Each register names its reader, and the reader brief lists what they
+// already know. A gloss straight after a known term is flagged.
+type Register = { name: string; known: string[] };
+const registers: Register[] = [
+  { name: "Email to a client who doesn't write code", known: [] },
+  { name: "Page for engineers", known: ["pull request", "lint rule", "token"] },
+];
+
+function overExplained(draft: string, known: string[]): string[] {
+  return known.flatMap((term) => {
+    const gloss = new RegExp(`\\b${term}s?\\b(?:,\\s+(?:a|an|the|which)\\b|\\s+\\((?:a|an|the|which)\\b)`, "i");
+    return gloss.test(draft) ? [`Explains "${term}", which this reader already knows`] : [];
+  });
+}
+
+const line =
+  "Each change goes in as a pull request, a proposed change that someone else reviews before it is merged.";
+console.log(`\nOne line, two registers:\n  "${line}"\n`);
+for (const r of registers) {
+  const hits = overExplained(line, r.known);
+  console.log(`${r.name}: ${hits.length ? "FAIL" : "PASS"}`);
+  for (const h of hits) console.log(`  ${h}`);
+}
