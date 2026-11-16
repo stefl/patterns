@@ -55,6 +55,22 @@ write it.
 5. Save everything sent beside the draft, so anyone can check what the writer
    saw.
 
+## The writer sees what the reader sees
+
+1. For anything that lives on a page or screen, the writer's context is the
+   page as a visitor sees it: its visible text in reading order, rendered from
+   the live or local page, with the line to change marked. For an email, the
+   thread it answers; for a brief, what the agent will be able to open.
+2. Never the source files. Component names and code comments resolve
+   references a visitor never meets, and so does the session that asked for
+   the copy.
+3. This is the cold reader's rule applied to the writer. With the page, the
+   writer can resolve "the last line" or "the X" the way a reader would, and
+   take a true fact from elsewhere on the same page instead of inventing one.
+4. Check every fact a rewrite adds against the page. A writer that has seen
+   the session or the code will fill a gap from what it knows, and what it
+   knows may be wrong.
+
 ## Build the profile from their real writing
 
 1. Collect writing the person wrote and sent themselves, with no model in the
